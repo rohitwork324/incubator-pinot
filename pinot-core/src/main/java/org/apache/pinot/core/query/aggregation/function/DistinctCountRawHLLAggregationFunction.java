@@ -29,8 +29,15 @@ import org.apache.pinot.core.query.aggregation.groupby.GroupByResultHolder;
 
 
 public class DistinctCountRawHLLAggregationFunction implements AggregationFunction<HyperLogLog, SerializedHLL> {
+  private final DistinctCountHLLAggregationFunction _distinctCountHLLAggregationFunction;
 
-  private final DistinctCountHLLAggregationFunction _distinctCountHLLAggregationFunction = new DistinctCountHLLAggregationFunction();
+  public DistinctCountRawHLLAggregationFunction() {
+    this(new DistinctCountHLLAggregationFunction());
+  }
+
+  DistinctCountRawHLLAggregationFunction(DistinctCountHLLAggregationFunction distinctCountHLLAggregationFunction) {
+    _distinctCountHLLAggregationFunction = distinctCountHLLAggregationFunction;
+  }
 
   @Nonnull
   @Override

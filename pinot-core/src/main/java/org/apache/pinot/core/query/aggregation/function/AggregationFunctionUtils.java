@@ -117,7 +117,7 @@ public class AggregationFunctionUtils {
       // String.format is very expensive, so avoid it for whole numbers that can fit in Long.
       // We simply append ".00000" to long, in order to keep the existing behavior.
       if (doubleValue <= Long.MAX_VALUE && DoubleMath.isMathematicalInteger(doubleValue)) {
-        return Long.toString(doubleValue.longValue()) + ".00000";
+        return doubleValue.longValue() + ".00000";
       } else {
         return String.format(Locale.US, "%1.5f", doubleValue);
       }

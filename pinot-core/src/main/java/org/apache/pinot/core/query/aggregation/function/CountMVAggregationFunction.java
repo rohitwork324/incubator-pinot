@@ -40,6 +40,11 @@ public class CountMVAggregationFunction extends CountAggregationFunction {
   }
 
   @Override
+  public void accept(@Nonnull AggregationFunctionVisitorBase visitor) {
+    visitor.visit(this);
+  }
+
+  @Override
   public void aggregate(int length, @Nonnull AggregationResultHolder aggregationResultHolder,
       @Nonnull BlockValSet... blockValSets) {
     int[] valueArray = blockValSets[0].getNumMVEntries();

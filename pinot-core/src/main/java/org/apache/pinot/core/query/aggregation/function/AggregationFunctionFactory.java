@@ -19,7 +19,6 @@
 package org.apache.pinot.core.query.aggregation.function;
 
 import com.google.common.base.Preconditions;
-import javax.annotation.Nonnull;
 import org.apache.pinot.common.function.AggregationFunctionType;
 import org.apache.pinot.core.query.exception.BadQueryRequestException;
 
@@ -34,8 +33,7 @@ public class AggregationFunctionFactory {
   /**
    * Given the name of the aggregation function, returns a new instance of the corresponding aggregation function.
    */
-  @Nonnull
-  public static AggregationFunction getAggregationFunction(@Nonnull String functionName) {
+  public static AggregationFunction getAggregationFunction(String functionName) {
     try {
       String upperCaseFunctionName = functionName.toUpperCase();
       if (upperCaseFunctionName.startsWith("PERCENTILE")) {
