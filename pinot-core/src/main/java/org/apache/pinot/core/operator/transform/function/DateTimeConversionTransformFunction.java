@@ -61,11 +61,11 @@ import org.apache.pinot.core.plan.DocIdSetPlanNode;
  *     <ul>
  *       <li>
  *         If Date column is expressed in millis, and output is expected in millis but bucketed to 15 minutes:
- *         dateTimeConvert(Date, '1:MILLISECONDS:EPOCH', '1:MILLISECONDS:EPOCH', '15:MINUTES')
+ *         DATE_TIME_CONVERT(Date, '1:MILLISECONDS:EPOCH', '1:MILLISECONDS:EPOCH', '15:MINUTES')
  *       </li>
  *       <li>
  *         If Date column is expressed in hoursSinceEpoch, and output is expected in weeksSinceEpoch bucketed to
- *         weeks: dateTimeConvert(Date, '1:HOURS:EPOCH', '1:WEEKS:EPOCH', '1:WEEKS')
+ *         weeks: DATE_TIME_CONVERT(Date, '1:HOURS:EPOCH', '1:WEEKS:EPOCH', '1:WEEKS')
  *       </li>
  *     </ul>
  *   </li>
@@ -80,7 +80,9 @@ import org.apache.pinot.core.plan.DocIdSetPlanNode;
  * </ul>
  */
 public class DateTimeConversionTransformFunction extends BaseTransformFunction {
-  public static final String FUNCTION_NAME = "dateTimeConvert";
+  public static final String FUNCTION_NAME = "date_time_convert";
+  @Deprecated
+  public static final String FUNCTION_NAME_DEPRECATED = "dateTimeConvert";
 
   private TransformFunction _mainTransformFunction;
   private BaseDateTimeTransformer _dateTimeTransformer;

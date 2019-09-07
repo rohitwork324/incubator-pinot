@@ -49,7 +49,9 @@ import org.apache.pinot.core.segment.index.readers.Dictionary;
 
 
 public class ValueInTransformFunction extends BaseTransformFunction {
-  public static final String FUNCTION_NAME = "valueIn";
+  public static final String FUNCTION_NAME = "value_in";
+  @Deprecated
+  public static final String FUNCTION_NAME_DEPRECATED = "valueIn";
 
   private TransformFunction _mainTransformFunction;
   private IntSet _dictIdSet;

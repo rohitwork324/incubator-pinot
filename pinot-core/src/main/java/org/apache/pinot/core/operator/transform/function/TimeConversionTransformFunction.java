@@ -31,7 +31,9 @@ import org.apache.pinot.core.plan.DocIdSetPlanNode;
 
 
 public class TimeConversionTransformFunction extends BaseTransformFunction {
-  public static final String FUNCTION_NAME = "timeConvert";
+  public static final String FUNCTION_NAME = "time_convert";
+  @Deprecated
+  public static final String FUNCTION_NAME_DEPRECATED = "timeConvert";
 
   private TransformFunction _mainTransformFunction;
   private TimeUnitTransformer _timeUnitTransformer;

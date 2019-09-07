@@ -26,7 +26,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import org.apache.pinot.common.request.transform.TransformExpressionTree;
 import org.apache.pinot.core.common.DataSource;
-import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.*;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.AbsTransformFunction;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.CeilTransformFunction;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.ExpTransformFunction;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.FloorTransformFunction;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.LnTransformFunction;
+import org.apache.pinot.core.operator.transform.function.SingleParamMathTransformFunction.SqrtTransformFunction;
 import org.apache.pinot.core.query.exception.BadQueryRequestException;
 
 
@@ -45,16 +50,21 @@ public class TransformFunctionFactory {
           put(SubtractionTransformFunction.FUNCTION_NAME.toLowerCase(), SubtractionTransformFunction.class);
           put(MultiplicationTransformFunction.FUNCTION_NAME.toLowerCase(), MultiplicationTransformFunction.class);
           put(DivisionTransformFunction.FUNCTION_NAME.toLowerCase(), DivisionTransformFunction.class);
-          put(TimeConversionTransformFunction.FUNCTION_NAME.toLowerCase(), TimeConversionTransformFunction.class);
-          put(DateTimeConversionTransformFunction.FUNCTION_NAME.toLowerCase(),
-              DateTimeConversionTransformFunction.class);
-          put(ValueInTransformFunction.FUNCTION_NAME.toLowerCase(), ValueInTransformFunction.class);
           put(AbsTransformFunction.FUNCTION_NAME.toLowerCase(), AbsTransformFunction.class);
           put(CeilTransformFunction.FUNCTION_NAME.toLowerCase(), CeilTransformFunction.class);
           put(ExpTransformFunction.FUNCTION_NAME.toLowerCase(), ExpTransformFunction.class);
           put(FloorTransformFunction.FUNCTION_NAME.toLowerCase(), FloorTransformFunction.class);
           put(LnTransformFunction.FUNCTION_NAME.toLowerCase(), LnTransformFunction.class);
           put(SqrtTransformFunction.FUNCTION_NAME.toLowerCase(), SqrtTransformFunction.class);
+          put(TimeConversionTransformFunction.FUNCTION_NAME.toLowerCase(), TimeConversionTransformFunction.class);
+          put(TimeConversionTransformFunction.FUNCTION_NAME_DEPRECATED.toLowerCase(),
+              TimeConversionTransformFunction.class);
+          put(DateTimeConversionTransformFunction.FUNCTION_NAME.toLowerCase(),
+              DateTimeConversionTransformFunction.class);
+          put(DateTimeConversionTransformFunction.FUNCTION_NAME_DEPRECATED.toLowerCase(),
+              DateTimeConversionTransformFunction.class);
+          put(ValueInTransformFunction.FUNCTION_NAME.toLowerCase(), ValueInTransformFunction.class);
+          put(ValueInTransformFunction.FUNCTION_NAME_DEPRECATED.toLowerCase(), ValueInTransformFunction.class);
           put(MapValueTransformFunction.FUNCTION_NAME.toLowerCase(), MapValueTransformFunction.class);
         }
       };
