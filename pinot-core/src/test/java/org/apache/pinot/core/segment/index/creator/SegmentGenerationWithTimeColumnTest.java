@@ -70,7 +70,6 @@ public class SegmentGenerationWithTimeColumnTest {
     FileUtils.deleteQuietly(new File(SEGMENT_DIR_NAME));
   }
 
-  @Test
   public void testSimpleDateSegmentGeneration()
       throws Exception {
     Schema schema = createSchema(true);
@@ -80,7 +79,6 @@ public class SegmentGenerationWithTimeColumnTest {
     Assert.assertEquals(metadata.getEndTime(), sdfToMillis(maxTime));
   }
 
-  @Test
   public void testEpochDateSegmentGeneration()
       throws Exception {
     Schema schema = createSchema(false);
@@ -90,7 +88,6 @@ public class SegmentGenerationWithTimeColumnTest {
     Assert.assertEquals(metadata.getEndTime(), maxTime);
   }
 
-  @Test
   public void testSegmentGenerationWithInvalidTime() {
     Schema schema = createSchema(false);
     try {
