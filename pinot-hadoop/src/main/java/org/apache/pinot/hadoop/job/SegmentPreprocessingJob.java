@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
+import javax.annotation.Nullable;
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileStream;
 import org.apache.avro.generic.GenericDatumReader;
@@ -87,7 +88,7 @@ public class SegmentPreprocessingJob extends BaseSegmentJob {
   private final Path _inputSegmentDir;
   private final Path _preprocessedOutputDir;
   protected final String _rawTableName;
-  protected final List<PushLocation> _pushLocations;
+  protected List<PushLocation> _pushLocations;
 
   // Optional.
   private final Path _pathToDependencyJar;
@@ -115,9 +116,7 @@ public class SegmentPreprocessingJob extends BaseSegmentJob {
       _pushLocations =
           PushLocation.getPushLocations(StringUtils.split(pushHostsString, ','), Integer.parseInt(pushPortString));
     } else {
-      throw new RuntimeException(String
-          .format("Push location is mis-configured! %s: %s, %s: %s", JobConfigConstants.PUSH_TO_HOSTS, pushHostsString,
-              JobConfigConstants.PUSH_TO_PORT, pushPortString));
+      _pushLocations = null;
     }
 
     _logger.info("*********************************************************************");
@@ -375,13 +374,25 @@ public class SegmentPreprocessingJob extends BaseSegmentJob {
     fieldSet.add(hashCodeField);
   }
 
+  /**
+   * Can be overridden to provide custom controller Rest API.
+   */
+  @Nullable
+  protected ControllerRestApi getControllerRestApi() {
+    return _pushLocations != null ? new DefaultControllerRestApi(_pushLocations, _rawTableName) : null;
+  }
+
   private void setTableConfigAndSchema() throws IOException {
     // If push locations, table config, and schema are not configured, this does not necessarily mean that segments
     // cannot be created. We should allow the user to go to the next step rather than failing the job.
     Preconditions.checkState(!_pushLocations.isEmpty(), "Push locations cannot be empty.");
-    try(ControllerRestApi controllerRestApi = new DefaultControllerRestApi(_pushLocations, _rawTableName)) {
-      _tableConfig = controllerRestApi.getTableConfig();
-      _pinotTableSchema = controllerRestApi.getSchema();
+    try(ControllerRestApi controllerRestApi = getControllerRestApi()) {
+      if (controllerRestApi != null) {
+        _tableConfig = controllerRestApi.getTableConfig();
+        _pinotTableSchema = controllerRestApi.getSchema();
+      } else {
+        throw new RuntimeException("Controller REST API not initialized");
+      }
     }
 
     Preconditions.checkState(_tableConfig != null, "Table config cannot be null.");
