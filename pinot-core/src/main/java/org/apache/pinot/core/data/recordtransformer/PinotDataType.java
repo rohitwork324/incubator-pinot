@@ -18,6 +18,7 @@
  */
 package org.apache.pinot.core.data.recordtransformer;
 
+import java.util.List;
 import org.apache.pinot.common.data.FieldSpec;
 
 
@@ -263,21 +264,33 @@ public enum PinotDataType {BOOLEAN {
   OBJECT {
     @Override
     public Integer toInteger(Object value) {
+      if (value instanceof Number) {
+        return ((Number) value).intValue();
+      }
       throw new UnsupportedOperationException("Cannot convert value: " + value + " from: OBJECT to: INTEGER");
     }
 
     @Override
     public Long toLong(Object value) {
+      if (value instanceof Number) {
+        return ((Number) value).longValue();
+      }
       throw new UnsupportedOperationException("Cannot convert value: " + value + " from: OBJECT to: LONG");
     }
 
     @Override
     public Float toFloat(Object value) {
+      if (value instanceof Number) {
+        return ((Number) value).floatValue();
+      }
       throw new UnsupportedOperationException("Cannot convert value: " + value + " from: OBJECT to: FLOAT");
     }
 
     @Override
     public Double toDouble(Object value) {
+      if (value instanceof Number) {
+        return ((Number) value).doubleValue();
+      }
       throw new UnsupportedOperationException("Cannot convert value: " + value + " from: OBJECT to: DOUBLE");
     }
   },
@@ -291,6 +304,14 @@ public enum PinotDataType {BOOLEAN {
   INTEGER_ARRAY {
     @Override
     public Integer[] convert(Object value, PinotDataType sourceType) {
+      if (value instanceof List) {
+        final List list = (List) value;
+        Integer[] res = new Integer[list.size()];
+        for (int i = 0;i < list.size(); i++) {
+          res[i] = sourceType.toInteger(list.get(i));
+        }
+        return res;
+      }
       return sourceType.toIntegerArray(value);
     }
   },
@@ -298,6 +319,14 @@ public enum PinotDataType {BOOLEAN {
   LONG_ARRAY {
     @Override
     public Long[] convert(Object value, PinotDataType sourceType) {
+      if (value instanceof List) {
+        final List list = (List) value;
+        Long[] res = new Long[list.size()];
+        for (int i = 0;i < list.size(); i++) {
+          res[i] = sourceType.toLong(list.get(i));
+        }
+        return res;
+      }
       return sourceType.toLongArray(value);
     }
   },
@@ -305,6 +334,14 @@ public enum PinotDataType {BOOLEAN {
   FLOAT_ARRAY {
     @Override
     public Float[] convert(Object value, PinotDataType sourceType) {
+      if (value instanceof List) {
+        final List list = (List) value;
+        Float[] res = new Float[list.size()];
+        for (int i = 0;i < list.size(); i++) {
+          res[i] = sourceType.toFloat(list.get(i));
+        }
+        return res;
+      }
       return sourceType.toFloatArray(value);
     }
   },
@@ -312,6 +349,14 @@ public enum PinotDataType {BOOLEAN {
   DOUBLE_ARRAY {
     @Override
     public Double[] convert(Object value, PinotDataType sourceType) {
+      if (value instanceof List) {
+        final List list = (List) value;
+        Double[] res = new Double[list.size()];
+        for (int i = 0;i < list.size(); i++) {
+          res[i] = sourceType.toDouble(list.get(i));
+        }
+        return res;
+      }
       return sourceType.toDoubleArray(value);
     }
   },
