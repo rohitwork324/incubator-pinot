@@ -304,14 +304,6 @@ public enum PinotDataType {BOOLEAN {
   INTEGER_ARRAY {
     @Override
     public Integer[] convert(Object value, PinotDataType sourceType) {
-      if (value instanceof List) {
-        final List list = (List) value;
-        Integer[] res = new Integer[list.size()];
-        for (int i = 0;i < list.size(); i++) {
-          res[i] = sourceType.toInteger(list.get(i));
-        }
-        return res;
-      }
       return sourceType.toIntegerArray(value);
     }
   },
@@ -319,14 +311,6 @@ public enum PinotDataType {BOOLEAN {
   LONG_ARRAY {
     @Override
     public Long[] convert(Object value, PinotDataType sourceType) {
-      if (value instanceof List) {
-        final List list = (List) value;
-        Long[] res = new Long[list.size()];
-        for (int i = 0;i < list.size(); i++) {
-          res[i] = sourceType.toLong(list.get(i));
-        }
-        return res;
-      }
       return sourceType.toLongArray(value);
     }
   },
@@ -334,14 +318,6 @@ public enum PinotDataType {BOOLEAN {
   FLOAT_ARRAY {
     @Override
     public Float[] convert(Object value, PinotDataType sourceType) {
-      if (value instanceof List) {
-        final List list = (List) value;
-        Float[] res = new Float[list.size()];
-        for (int i = 0;i < list.size(); i++) {
-          res[i] = sourceType.toFloat(list.get(i));
-        }
-        return res;
-      }
       return sourceType.toFloatArray(value);
     }
   },
@@ -349,14 +325,6 @@ public enum PinotDataType {BOOLEAN {
   DOUBLE_ARRAY {
     @Override
     public Double[] convert(Object value, PinotDataType sourceType) {
-      if (value instanceof List) {
-        final List list = (List) value;
-        Double[] res = new Double[list.size()];
-        for (int i = 0;i < list.size(); i++) {
-          res[i] = sourceType.toDouble(list.get(i));
-        }
-        return res;
-      }
       return sourceType.toDoubleArray(value);
     }
   },
@@ -400,6 +368,15 @@ public enum PinotDataType {BOOLEAN {
   }
 
   public Integer[] toIntegerArray(Object value) {
+    if (value instanceof List) {
+      List list = (List) value;
+      int listSize = list.size();
+      Integer[] res = new Integer[listSize];
+      for (int i = 0; i < listSize; i++) {
+        res[i] = toInteger(list.get(i));
+      }
+      return res;
+    }
     if (isSingleValue()) {
       return new Integer[]{toInteger(value)};
     } else {
@@ -415,6 +392,15 @@ public enum PinotDataType {BOOLEAN {
   }
 
   public Long[] toLongArray(Object value) {
+    if (value instanceof List) {
+      List list = (List) value;
+      int listSize = list.size();
+      Long[] res = new Long[listSize];
+      for (int i = 0; i < listSize; i++) {
+        res[i] = toLong(list.get(i));
+      }
+      return res;
+    }
     if (isSingleValue()) {
       return new Long[]{toLong(value)};
     } else {
@@ -430,6 +416,15 @@ public enum PinotDataType {BOOLEAN {
   }
 
   public Float[] toFloatArray(Object value) {
+    if (value instanceof List) {
+      List list = (List) value;
+      int listSize = list.size();
+      Float[] res = new Float[listSize];
+      for (int i = 0; i < listSize; i++) {
+        res[i] = toFloat(list.get(i));
+      }
+      return res;
+    }
     if (isSingleValue()) {
       return new Float[]{toFloat(value)};
     } else {
@@ -445,6 +440,15 @@ public enum PinotDataType {BOOLEAN {
   }
 
   public Double[] toDoubleArray(Object value) {
+    if (value instanceof List) {
+      List list = (List) value;
+      int listSize = list.size();
+      Double[] res = new Double[listSize];
+      for (int i = 0; i < listSize; i++) {
+        res[i] = toDouble(list.get(i));
+      }
+      return res;
+    }
     if (isSingleValue()) {
       return new Double[]{toDouble(value)};
     } else {
@@ -460,6 +464,15 @@ public enum PinotDataType {BOOLEAN {
   }
 
   public String[] toStringArray(Object value) {
+    if (value instanceof List) {
+      List list = (List) value;
+      int listSize = list.size();
+      String[] res = new String[listSize];
+      for (int i = 0; i < listSize; i++) {
+        res[i] = toString(list.get(i));
+      }
+      return res;
+    }
     if (isSingleValue()) {
       return new String[]{toString(value)};
     } else {
