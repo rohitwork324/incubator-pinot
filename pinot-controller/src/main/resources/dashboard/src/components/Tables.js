@@ -35,6 +35,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Utils from "./Utils";
 import PinotTable from "./tables/PinotTable";
 import Link from '@material-ui/core/Link';
+import MaterialTable from "material-table";
+
 
 
 const useStyles = theme => ({
@@ -96,18 +98,23 @@ class Tables extends Component {
         fetch(App.serverAddress + '/tables/' + table)
             .then(res => res.json())
             .then((data) => {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 this.treeData = Utils.populateNode(data,1, 'properties');
+                console.log('hi')
+                console.log(this.treeData['children'])
                 this.setState({instances: this.tables, treeData: this.treeData})
+                
             })
             .catch(console.log)
     }
 
     displayTable(table) {
         this.currentTable  = table;
+        
         return () =>  {
             this.tableDisplay = <PinotTable table = {this.currentTable}></PinotTable>;
             this.setState({currentTable: this.currentTable });
+            
 
         }
     }
@@ -115,59 +122,46 @@ class Tables extends Component {
     render() {
         return (
             <div>
-                <Card style={{background:"#f5f5f5"}}>
-                    <CardContent >
-                        <TableContainer component={Paper} >
-                            <Table  aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>
-                                            <TypoGraphy color="inherit" variant="h5" align= "center">
-                                                Tables
-                                            </TypoGraphy>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableHead>
-                            </Table>
-                        </TableContainer>
-                    </CardContent>
-                </Card>
-                <Card style={{background:"#f5f5f5"}}>
-                    <CardContent >
-                        <TableContainer component={Paper} >
-                            <Table  aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Table Name</TableCell>
-                                        <TableCell align="right">Reported Size</TableCell>
-                                        <TableCell align="right">Estimated Size</TableCell>
-                                        <TableCell align="center">Table Properties</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {this.state.instances.map(instance => (
-                                        <TableRow key={instance.name} onClick={this.displayTable(instance.name)}>
-                                            <TableCell component="th" scope="row" >
-                                                <TypoGraphy><Link>{instance.name}</Link> </TypoGraphy>
-                                            </TableCell>
-                                            <TableCell align="right">{instance.reportedSizeInBytes}</TableCell>
-                                            <TableCell align="right">{instance.estimatedSizeInBytes}</TableCell>
-                                            <TableCell align="left" style={{border:"10px"}}>
-                                                <TreeView
-                                                    defaultCollapseIcon={<ExpandMoreIcon />}
-                                                    defaultExpandIcon={<ChevronRightIcon />}
-                                                    defaultExpanded={['2']}>
-                                                    {Utils.renderTree(this.state.treeData)}
-                                                </TreeView>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </CardContent>
-                </Card>
-                {this.tableDisplay}
+          
+                <MaterialTable
+                    title="Table Details"
+                    columns={[
+                        { title: 'Table Name', field: 'name' },
+                        { title: 'Reported Size', field: 'reportedSizeInBytes' },
+                        { title: 'Estimated Size', field: 'estimatedSizeInBytes'},
+                        { title: 'Properties', render: rowData => <TreeView
+                        defaultCollapseIcon={<ExpandMoreIcon />}
+                        defaultExpandIcon={<ChevronRightIcon />}
+                        defaultExpanded={['2']}>
+                        {Utils.renderTree(this.state.treeData)}
+</TreeView>}
+                        
+                        
+                    ]}
+                    data={this.tables}
+                    localization={{
+                        header: {
+                            actions: 'Table Properties'
+                        },
+                      }}
+                    
+                    detailPanel={rowData => {
+                        return (
+                            <div>
+                        <PinotTable table = {rowData.name}></PinotTable>
+                        
+                        
+                        </div>
+                        )
+                      }}
+                    
+                    options={{
+                        headerStyle: Utils.getTableHeaderStyles(),
+                        search: true
+                    }}
+                />
+                
+               
             </div>
         );
     }
