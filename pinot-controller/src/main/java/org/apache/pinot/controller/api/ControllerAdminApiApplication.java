@@ -101,6 +101,16 @@ public class ControllerAdminApiApplication extends ResourceConfig {
     // without this explicit request to /index.html will not work
     httpServer.getServerConfiguration().addHttpHandler(new CLStaticHttpHandler(classLoader, "/static/"), "/index.html");
 
+
+    CLStaticHttpHandler apiStaticHttpHandler = new CLStaticHttpHandler(classLoader, "/dashboard/build/");
+    // map both /api and /help to swagger docs. /api because it looks nice. /help for backward compatibility
+    httpServer.getServerConfiguration().addHttpHandler(apiStaticHttpHandler, "/dashboard/");
+    httpServer.getServerConfiguration().addHttpHandler(apiStaticHttpHandler, "/dashboard/cluster/");
+//
+    URL swaggerDistLocation = classLoader.getResource("dashboard/build/static/");
+    CLStaticHttpHandler dashboardDist = new CLStaticHttpHandler(new URLClassLoader(new URL[]{swaggerDistLocation}));
+    httpServer.getServerConfiguration().addHttpHandler(dashboardDist, "/static/");
+
     started = true;
     LOGGER.info("Start jersey admin API on port: {}", httpPort);
     return true;

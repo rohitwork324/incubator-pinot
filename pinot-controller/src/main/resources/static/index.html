@@ -56,7 +56,10 @@
   <div class="container">
     <h1>Welcome to Pinot!</h1>
     <p>You're currently connected to a Pinot controller, which handles the cluster-wide coordination for all Pinot nodes. Most humans tend to find the following features useful:</p>
-    <p><a class="btn btn-primary btn-lg" href="/query" role="button">Open query console &raquo;</a> <a class="btn btn-primary btn-lg" href="/help" role="button">Open REST API &raquo;</a></p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="/query" role="button">Open query console &raquo;</a>
+      <a class="btn btn-primary btn-lg" href="/help" role="button">Open REST API &raquo;</a>
+      <a class="btn btn-primary btn-lg" href="/dashboard" role="button">Open Dashboard &raquo;</a></p>
   </div>
 </div>
 
@@ -72,6 +75,11 @@
       <h2>Pinot REST API</h2>
       <p>An interactive documentation for the Pinot REST API with a swanky Swagger-generated page. Keep in mind that your actions here will directly affect the cluster, so be mindful of other tenants.</p>
       <p><a class="btn btn-default" href="/help" role="button">REST API &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Dashboard</h2>
+      <p>Gives the realtime details of the cluster.</p>
+      <p><a class="btn btn-default" href="/dashboard" role="button">Dashboard &raquo;</a></p>
     </div>
   </div>
 

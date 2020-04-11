@@ -57,14 +57,14 @@ export default class Routing extends React.Component{
             <App></App>
             <div>
                 <Route exact path="/" render={() => (
-                    <Redirect to="/cluster"/>
+                    <Redirect to="/dashboard/cluster"/>
                 )}/>
-                <Route path="/cluster" component={Cluster} />
-                <Route path="/tables" component={Tables} />
-                <Route path="/tenants" component={Tenants} />
-                <Route path="/servers" render={(props) => <Instance {...props} instanceName = {'Server'} instances={this.instances} />}/>
-                <Route path="/brokers" render={(props) => <Instance {...props} instanceName = {'Broker'} instances={this.instances} />} />
-                <Route path="/controllers" render={(props) => <Instance {...props} instanceName = {'Controller'} instances={this.instances} />} />
+                <Route path="/dashboard/cluster" component={Cluster} />
+                <Route path="/dashboard/tables" component={Tables} />
+                <Route path="/dashboard/tenants" component={Tenants} />
+                <Route path="/dashboard/servers" render={(props) => <Instance {...props} instanceName = {'Server'} instances={this.instances} />}/>
+                <Route path="/dashboard/brokers" render={(props) => <Instance {...props} instanceName = {'Broker'} instances={this.instances} />} />
+                <Route path="/dashboard/controllers" render={(props) => <Instance {...props} instanceName = {'Controller'} instances={this.instances} />} />
             </div>
         </Router>
     }

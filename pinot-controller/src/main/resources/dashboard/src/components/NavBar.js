@@ -34,10 +34,10 @@ class NavBar extends Component {
         return (
             <List component="nav">
                 <ListItem component="div" >
-                    <ListItemText inset onClick={() => this.props.history.push('/cluster')}>
+                    <ListItemText inset onClick={() => this.props.history.push('/dashboard/cluster')}>
                         <TypoGraphy color="inherit" variant="title" >
                         <NavLink 
-                        to="/cluster"
+                        to="/dashboard/cluster"
                         activeStyle={{
                             
                             fontWeight: "bold",
@@ -49,10 +49,10 @@ class NavBar extends Component {
                         </TypoGraphy>
                     </ListItemText>
 
-                    <ListItemText inset onClick={() => this.props.history.push('/tenants')}>
+                    <ListItemText inset onClick={() => this.props.history.push('/dashboard/tenants')}>
                         <TypoGraphy color="inherit" variant="title">
                         <NavLink
-                        to="/tenants"
+                        to="/dashboard/tenants"
                         activeStyle={{
                             
                             fontWeight: "bold",
@@ -65,10 +65,10 @@ class NavBar extends Component {
                         </TypoGraphy>
                     </ListItemText>
 
-                    <ListItemText inset onClick={() => this.props.history.push('/tables')}>
+                    <ListItemText inset onClick={() => this.props.history.push('/dashboard/tables')}>
                         <TypoGraphy color="inherit" variant="title">
                         <NavLink
-                        to="/tables"
+                        to="/dashboard/tables"
                         activeStyle={{
                             
                             fontWeight: "bold",
@@ -81,10 +81,10 @@ class NavBar extends Component {
                         </TypoGraphy>
                     </ListItemText>
 
-                    <ListItemText inset onClick={() => this.props.history.push('/controllers')}>
+                    <ListItemText inset onClick={() => this.props.history.push('/dashboard/controllers')}>
                         <TypoGraphy color="inherit" variant="title">
                         <NavLink
-                        to="/controllers"
+                        to="/dashboard/controllers"
                         activeStyle={{
                             
                             fontWeight: "bold",
@@ -96,10 +96,10 @@ class NavBar extends Component {
                         </TypoGraphy>
                     </ListItemText>
 
-                    <ListItemText inset onClick={() => this.props.history.push('/servers')}>
+                    <ListItemText inset onClick={() => this.props.history.push('/dashboard/servers')}>
                         <TypoGraphy color="inherit" variant="title">
                         <NavLink
-                        to="/servers"
+                        to="/dashboard/servers"
                         activeStyle={{
                             
                             fontWeight: "bold",
@@ -112,10 +112,10 @@ class NavBar extends Component {
                         </TypoGraphy>
                     </ListItemText>
                     {/* onClick={() => this.props.history.push('/brokers')} */}
-                    <ListItemText inset  onClick={() => this.props.history.push('/brokers')} >
+                    <ListItemText inset  onClick={() => this.props.history.push('/dashboard/brokers')} >
                         <TypoGraphy color="inherit" variant="title">
                         <NavLink
-                        to="/brokers"
+                        to="/dashboard/brokers"
                         activeStyle={{
                             
                             fontWeight: "bold",

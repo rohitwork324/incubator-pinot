@@ -1285,6 +1285,7 @@
             <exclude>**/normalize*</exclude>
             <exclude>**/handlebars*</exclude>
             <exclude>**/beautify*</exclude>
+            <exclude>**/dashboard/**</exclude>
           </excludes>
           <mapping>
             <thrift>JAVADOC_STYLE</thrift>
@@ -1326,6 +1327,7 @@
 
             <!-- Exclude build targets -->
             <exclude>**/target/**</exclude>
+            <exclude>**/dashboard/**</exclude>
 
 
             <!-- js, css files that are exact copies of the third-party works. In this case, the original header has to
